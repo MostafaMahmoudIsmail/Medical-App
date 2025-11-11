@@ -17,14 +17,14 @@ export default function App() {
       <AuthProvider>
         <Navbar />
         <Routes>
-          {/* 🏠 صفحة البداية */}
+     
           <Route path="/home" element={<Home />} />
 
-          {/* صفحات عامة */}
+      
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* صفحات محمية */}
+        
           <Route
             path="/doctor-dashboard"
             element={

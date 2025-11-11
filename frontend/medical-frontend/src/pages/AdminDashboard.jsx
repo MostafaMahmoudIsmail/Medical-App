@@ -90,7 +90,7 @@ export default function AdminDashboard() {
         🛠️ Admin Dashboard
       </h1>
 
-      {/* 🔹 Tabs */}
+   
         <div className="flex justify-center mb-6 gap-4">
         <button
             onClick={() => setTab("users")}
@@ -119,7 +119,7 @@ export default function AdminDashboard() {
         </div>
 
 
-      {/* 🔹 Manage Users */}
+   
       {tab === "users" && (
         <div className="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow">
           <h2 className="text-xl font-semibold mb-4">All Users</h2>
@@ -181,7 +181,7 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* 🔹 View Appointments */}
+   
       {tab === "appointments" && (
         <div className="max-w-5xl mx-auto bg-white p-6 rounded-xl shadow">
           <h2 className="text-xl font-semibold mb-4">All Appointments</h2>
@@ -218,7 +218,7 @@ export default function AdminDashboard() {
         <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow">
             <h2 className="text-xl font-semibold mb-4">Manage Specialties</h2>
 
-            {/* ✅ Add new specialty form */}
+          
             <form
             onSubmit={async (e) => {
                 e.preventDefault();
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
             </button>
             </form>
 
-            {/* ✅ List of specialties */}
+        
             {specialties.length === 0 ? (
             <p className="text-gray-500">No specialties found.</p>
             ) : (

@@ -62,7 +62,7 @@ export default function DoctorAvailability() {
 
   return (
     <div className="min-h-screen bg-green-50 p-10">
-      <ToastContainer position="top-right" autoClose={2500} /> {/* ✅ يظهر التوست هنا */}
+      <ToastContainer position="top-right" autoClose={2500} />
 
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-green-700">
@@ -77,7 +77,7 @@ export default function DoctorAvailability() {
         </button>
       </div>
 
-      {/* ✅ نموذج إضافة المواعيد */}
+    
       <form
         onSubmit={addAvailability}
         className="max-w-lg mx-auto bg-white shadow-md rounded-xl p-6 border border-gray-200 mb-10"
@@ -136,7 +136,7 @@ export default function DoctorAvailability() {
         </div>
       </form>
 
-      {/* ✅ قائمة المواعيد الحالية */}
+ 
       <div className="max-w-2xl mx-auto bg-white shadow-md rounded-xl p-6 border border-gray-200">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">
           Your Current Availability

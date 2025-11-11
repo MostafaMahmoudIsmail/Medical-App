@@ -115,7 +115,7 @@ export default function PatientDashboard() {
 
 
       <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-2">
-        {/* ✅ قائمة الأطباء */}
+   
         <div className="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">
             Available Doctors
@@ -137,7 +137,7 @@ export default function PatientDashboard() {
           )}
         </div>
 
-        {/* ✅ المواعيد المتاحة */}
+     
         <div className="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">
             Doctor Availability
@@ -175,7 +175,7 @@ export default function PatientDashboard() {
         </div>
       </div>
 
-      {/* ✅ المواعيد المحجوزة */}
+     
       <div className="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-6 border border-gray-200">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">
           My Appointments

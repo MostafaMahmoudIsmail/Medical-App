@@ -59,7 +59,7 @@ export default function DoctorDashboard() {
         🩺 Doctor Dashboard
       </h1>
 
-      {/* زرار الانتقال إلى صفحة إدارة المواعيد */}
+
       
         <div className="text-center mb-6 flex justify-center gap-4">
         <button
