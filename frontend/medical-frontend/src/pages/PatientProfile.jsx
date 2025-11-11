@@ -20,7 +20,7 @@ export default function PatientProfile() {
       setProfile(res.data);
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to load profile");
+      toast.error("Failed to load profile");
     } finally {
       setLoading(false);
     }
@@ -30,10 +30,10 @@ export default function PatientProfile() {
     e.preventDefault();
     try {
       await api.patch("profiles/patient/profile/", profile);
-      toast.success("✅ Profile updated successfully!");
+      toast.success("Profile updated successfully!");
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to update profile");
+      toast.error("Failed to update profile");
     }
   }
 

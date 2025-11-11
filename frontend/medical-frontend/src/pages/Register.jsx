@@ -30,10 +30,10 @@ export default function Register() {
       });
       if (!res.ok) throw new Error("Registration failed");
       const data = await res.json();
-      setMessage(`✅ ${data.username} registered successfully!`);
+      setMessage(`${data.username} registered successfully!`);
       setFormData({ username: "", email: "", password: "", role: "PATIENT" });
     } catch (err) {
-      setMessage("❌ " + err.message);
+      setMessage(err.message);
     } finally {
       setLoading(false);
     }

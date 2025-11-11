@@ -32,7 +32,7 @@ export default function AdminDashboard() {
       setUsers(res.data);
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to load users");
+      toast.error("Failed to load users");
     } finally {
       setLoading(false);
     }
@@ -44,7 +44,7 @@ export default function AdminDashboard() {
       setAppointments(res.data);
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to load appointments");
+      toast.error("Failed to load appointments");
     }
   }
 
@@ -53,7 +53,7 @@ export default function AdminDashboard() {
       const res = await api.get("profiles/admin/specialties/");
       setSpecialties(res.data);
     } catch (err) {
-      toast.error("❌ Failed to load specialties");
+      toast.error("Failed to load specialties");
     }
   }
 
@@ -62,11 +62,11 @@ export default function AdminDashboard() {
       await api.patch(`profiles/admin/users/${id}/`, {
         is_active: !currentStatus,
       });
-      toast.success("✅ User status updated");
+      toast.success("User status updated");
       fetchUsers();
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to update user status");
+      toast.error("Failed to update user status");
     }
   }
 
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
       fetchUsers();
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to delete user");
+      toast.error("Failed to delete user");
     }
   }
 
@@ -91,11 +91,11 @@ export default function AdminDashboard() {
     }
     try {
       await api.post("profiles/admin/specialties/", newSpecialty);
-      toast.success("✅ Specialty added");
+      toast.success("Specialty added");
       setNewSpecialty({ name: "", description: "" });
       fetchSpecialties();
     } catch (err) {
-      toast.error("❌ Failed to add specialty");
+      toast.error("Failed to add specialty");
     }
   }
 
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
       toast.info("Deleted");
       fetchSpecialties();
     } catch (err) {
-      toast.error("❌ Failed to delete");
+      toast.error("Failed to delete");
     }
   }
 

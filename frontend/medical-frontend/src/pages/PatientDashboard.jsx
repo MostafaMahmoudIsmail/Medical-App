@@ -20,7 +20,7 @@ export default function PatientDashboard() {
         setDoctors(res.data);
       } catch (err) {
         console.error(err);
-        toast.error("❌ Failed to load doctors.");
+        toast.error("Failed to load doctors.");
       }
     }
     fetchDoctors();
@@ -32,7 +32,7 @@ export default function PatientDashboard() {
       setAppointments(res.data);
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to load your appointments.");
+      toast.error("Failed to load your appointments.");
     }
   }
 
@@ -51,7 +51,7 @@ export default function PatientDashboard() {
       setAvailabilities(res.data);
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to load availability.");
+      toast.error("Failed to load availability.");
     }
   }
 
@@ -66,11 +66,11 @@ export default function PatientDashboard() {
         availability: slot.id,
         date: selectedDate,
       });
-      toast.success("✅ Appointment booked successfully!");
+      toast.success("Appointment booked successfully!");
       fetchAppointments();
     } catch (err) {
       console.error(err.response?.data || err);
-      toast.error("❌ Failed to book appointment.");
+      toast.error("Failed to book appointment.");
     }
   }
 
@@ -83,7 +83,7 @@ export default function PatientDashboard() {
       fetchAppointments();
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to cancel appointment.");
+      toast.error("Failed to cancel appointment.");
     }
   }
 

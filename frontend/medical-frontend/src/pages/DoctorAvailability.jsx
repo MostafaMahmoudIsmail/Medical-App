@@ -22,7 +22,7 @@ export default function DoctorAvailability() {
       setAvailabilities(res.data);
     } catch (err) {
       console.error("Error loading availability:", err);
-      toast.error("❌ Failed to load availability.");
+      toast.error("Failed to load availability.");
     }
   }
 
@@ -38,14 +38,14 @@ export default function DoctorAvailability() {
         start_time: startTime,
         end_time: endTime,
       });
-      toast.success("✅ Availability added successfully!");
+      toast.success("Availability added successfully!");
       setDay("");
       setStartTime("");
       setEndTime("");
       fetchAvailability();
     } catch (err) {
       console.error("Error adding availability:", err.response?.data || err);
-      toast.error("❌ Failed to add availability.");
+      toast.error("Failed to add availability.");
     }
   }
 
@@ -56,7 +56,7 @@ export default function DoctorAvailability() {
       fetchAvailability();
     } catch (err) {
       console.error("Error deleting availability:", err.response?.data || err);
-      toast.error("❌ Failed to delete availability.");
+      toast.error("Failed to delete availability.");
     }
   }
 

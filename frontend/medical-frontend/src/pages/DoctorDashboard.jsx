@@ -17,7 +17,7 @@ export default function DoctorDashboard() {
       setAppointments(res.data);
     } catch (err) {
       console.error(err);
-      setError("❌ Failed to load appointments.");
+      setError("Failed to load appointments.");
     } finally {
       setLoading(false);
     }
@@ -26,11 +26,11 @@ export default function DoctorDashboard() {
   async function updateStatus(id, newStatus) {
     try {
       await api.patch(`appointments/appointments/${id}/`, { status: newStatus });
-      toast.success(`✅ Appointment ${newStatus.toLowerCase()} successfully.`);
+      toast.success(`Appointment ${newStatus.toLowerCase()} successfully.`);
       fetchAppointments();
     } catch (err) {
       console.error("Status update error:", err.response?.data || err);
-      toast.error("❌ Failed to update appointment.");
+      toast.error("Failed to update appointment.");
     }
   }
 
