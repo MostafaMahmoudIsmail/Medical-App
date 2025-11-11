@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { FaUserEdit } from "react-icons/fa";
 
 export default function PatientProfile() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProfile();
@@ -50,43 +52,52 @@ export default function PatientProfile() {
     );
 
   return (
-    <div className="min-h-screen bg-blue-50 p-10">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-10">
       <ToastContainer position="top-right" autoClose={2500} />
-      <h1 className="text-3xl font-bold text-blue-700 text-center mb-6">
-        👩‍⚕️ Edit Patient Profile
-      </h1>
+      <div className="flex items-center justify-center gap-3 mb-8">
+        <FaUserEdit className="text-3xl text-blue-600" />
+        <h1 className="text-3xl font-bold text-blue-700 text-center">
+          Edit Patient Profile
+        </h1>
+      </div>
 
       <form
         onSubmit={handleSubmit}
-        className="max-w-2xl mx-auto bg-white shadow-lg rounded-xl p-6 border border-gray-200"
+        className="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-8 border border-gray-200"
       >
-        <div className="grid gap-4">
+        <div className="grid gap-5">
           <div>
-            <label className="block font-medium">Phone</label>
+            <label className="block font-medium mb-1 text-gray-700">Phone</label>
             <input
               type="text"
               value={profile.phone || ""}
-              onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
-              className="border p-2 rounded w-full"
+              onChange={(e) =>
+                setProfile({ ...profile, phone: e.target.value })
+              }
+              className="border rounded-lg w-full p-3 focus:ring-2 focus:ring-blue-400 outline-none"
             />
           </div>
 
           <div>
-            <label className="block font-medium">Age</label>
+            <label className="block font-medium mb-1 text-gray-700">Age</label>
             <input
               type="number"
               value={profile.age || ""}
-              onChange={(e) => setProfile({ ...profile, age: e.target.value })}
-              className="border p-2 rounded w-full"
+              onChange={(e) =>
+                setProfile({ ...profile, age: e.target.value })
+              }
+              className="border rounded-lg w-full p-3 focus:ring-2 focus:ring-blue-400 outline-none"
             />
           </div>
 
           <div>
-            <label className="block font-medium">Gender</label>
+            <label className="block font-medium mb-1 text-gray-700">Gender</label>
             <select
               value={profile.gender || ""}
-              onChange={(e) => setProfile({ ...profile, gender: e.target.value })}
-              className="border p-2 rounded w-full"
+              onChange={(e) =>
+                setProfile({ ...profile, gender: e.target.value })
+              }
+              className="border rounded-lg w-full p-3 focus:ring-2 focus:ring-blue-400 outline-none"
             >
               <option value="">Select Gender</option>
               <option value="MALE">Male</option>
@@ -95,28 +106,32 @@ export default function PatientProfile() {
           </div>
 
           <div>
-            <label className="block font-medium">Address</label>
+            <label className="block font-medium mb-1 text-gray-700">Address</label>
             <input
               type="text"
               value={profile.address || ""}
-              onChange={(e) => setProfile({ ...profile, address: e.target.value })}
-              className="border p-2 rounded w-full"
+              onChange={(e) =>
+                setProfile({ ...profile, address: e.target.value })
+              }
+              className="border rounded-lg w-full p-3 focus:ring-2 focus:ring-blue-400 outline-none"
             />
           </div>
-            <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 transition"
-            >
-            ← Back to Dashboard
-            </button>
 
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-          >
-            Save Changes
-          </button>
+          <div className="flex gap-4 justify-between mt-4">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="bg-gray-300 text-gray-800 py-2 px-5 rounded-lg hover:bg-gray-400 transition"
+            >
+              ← Back
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-600 text-white py-2 px-5 rounded-lg hover:bg-blue-700 transition"
+            >
+              Save Changes
+            </button>
+          </div>
         </div>
       </form>
     </div>

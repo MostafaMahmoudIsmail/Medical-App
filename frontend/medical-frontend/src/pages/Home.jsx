@@ -7,55 +7,63 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-center px-4">
-      <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">
-        🏥 Welcome to Medical Portal
-      </h1>
-      <p className="text-lg md:text-xl mb-8 text-blue-100">
-        Book and manage appointments easily for doctors, patients, and admins.
-      </p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 flex flex-col justify-center items-center text-white px-6">
+      <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-2xl p-10 text-center max-w-xl">
+        <h1 className="text-5xl font-extrabold mb-4 tracking-tight">
+           Medical Portal
+        </h1>
+        <p className="text-lg text-blue-100 mb-8">
+          Manage your appointments easily with doctors, patients, and admins.
+        </p>
 
-      {user ? (
-        <div className="flex gap-4">
-          {user.role === "DOCTOR" ? (
+        {user ? (
+          <div className="flex flex-wrap justify-center gap-4">
+            {user.role === "DOCTOR" && (
+              <button
+                onClick={() => navigate("/doctor-dashboard")}
+                className="bg-green-500 hover:bg-green-600 px-6 py-2 rounded-full font-semibold transition"
+              >
+                Doctor Dashboard
+              </button>
+            )}
+            {user.role === "PATIENT" && (
+              <button
+                onClick={() => navigate("/patient-dashboard")}
+                className="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-full font-semibold transition"
+              >
+                Patient Dashboard
+              </button>
+            )}
+            {user.role === "ADMIN" && (
+              <button
+                onClick={() => navigate("/admin-dashboard")}
+                className="bg-yellow-500 hover:bg-yellow-600 px-6 py-2 rounded-full font-semibold transition"
+              >
+                Admin Dashboard
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-4">
             <button
-              onClick={() => navigate("/doctor-dashboard")}
-              className="bg-green-500 text-white font-semibold px-6 py-2 rounded-lg hover:bg-green-600 transition"
+              onClick={() => navigate("/")}
+              className="bg-white text-blue-700 font-semibold px-6 py-2 rounded-full hover:bg-blue-50 transition"
             >
-              Go to Doctor Dashboard
+              Login
             </button>
-          ) : user.role === "PATIENT" ? (
             <button
-              onClick={() => navigate("/patient-dashboard")}
-              className="bg-blue-500 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-600 transition"
+              onClick={() => navigate("/register")}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-full transition"
             >
-              Go to Patient Dashboard
+              Register
             </button>
-          ) : user.role === "ADMIN" ? (
-            <button
-              onClick={() => navigate("/admin-dashboard")}
-              className="bg-yellow-500 text-white font-semibold px-6 py-2 rounded-lg hover:bg-yellow-600 transition"
-            >
-              Go to Admin Dashboard
-            </button>
-          ) : null}
-        </div>
-      ) : (
-        <div className="flex gap-4">
-          <button
-            onClick={() => navigate("/")}
-            className="bg-white text-blue-600 font-semibold px-6 py-2 rounded-lg hover:bg-blue-100 transition"
-          >
-            Login
-          </button>
-          <button
-            onClick={() => navigate("/register")}
-            className="bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-800 transition"
-          >
-            Register
-          </button>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
+
+      <footer className="text-sm text-blue-100 mt-10 opacity-80">
+        © {new Date().getFullYear()} Medical Portal. All rights reserved.
+      </footer>
     </div>
   );
 }

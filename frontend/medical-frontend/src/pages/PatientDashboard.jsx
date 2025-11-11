@@ -3,6 +3,8 @@ import api from "../api/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { FaUserMd, FaClipboardList, FaCalendarAlt } from "react-icons/fa";
+
 export default function PatientDashboard() {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -10,7 +12,7 @@ export default function PatientDashboard() {
   const [selectedDate, setSelectedDate] = useState("");
   const [appointments, setAppointments] = useState([]);
   const navigate = useNavigate();
-  // 🧩 تحميل قائمة الأطباء
+
   useEffect(() => {
     async function fetchDoctors() {
       try {
@@ -24,7 +26,6 @@ export default function PatientDashboard() {
     fetchDoctors();
   }, []);
 
-  // 🧩 تحميل المواعيد الحالية
   async function fetchAppointments() {
     try {
       const res = await api.get("appointments/appointments/");
@@ -39,7 +40,6 @@ export default function PatientDashboard() {
     fetchAppointments();
   }, []);
 
-  // 🧩 تحميل المواعيد المتاحة للطبيب
   async function fetchAvailability(doctorProfileId) {
     setSelectedDoctor(doctorProfileId);
     setAvailabilities([]);
@@ -55,13 +55,11 @@ export default function PatientDashboard() {
     }
   }
 
-  // ✅ حجز موعد
   async function bookAppointment(slot) {
     if (!selectedDate) {
-      toast.warning("⚠️ Please choose a date before booking.");
+      toast.warning("Please choose a date before booking.");
       return;
     }
-
     try {
       await api.post("appointments/appointments/", {
         doctor: slot.doctor,
@@ -76,13 +74,12 @@ export default function PatientDashboard() {
     }
   }
 
-  // ❌ إلغاء موعد
   async function cancelAppointment(id) {
     try {
       await api.patch(`appointments/appointments/${id}/`, {
         status: "CANCELLED",
       });
-      toast.info("🗑️ Appointment cancelled successfully.");
+      toast.info("Appointment cancelled successfully.");
       fetchAppointments();
     } catch (err) {
       console.error(err);
@@ -91,63 +88,67 @@ export default function PatientDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-blue-50 p-10">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-10">
       <ToastContainer position="top-right" autoClose={2500} />
 
-      <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
-        👩‍⚕️ Patient Dashboard
-      </h1>
-      <div className="text-center mb-6">
-        <button
-            onClick={() => navigate("/home")}
-            className="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition"
-        >
-            🏠 Back to Home
-        </button>
-        <button
-            onClick={() => navigate("/patient-profile")}
-            className="bg-yellow-500 text-white px-5 py-2 rounded-lg hover:bg-yellow-600 transition"
-            >
-            🧾 Edit Profile
-            </button>
-
+      <div className="flex flex-col items-center mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <FaClipboardList className="text-3xl text-blue-600" />
+          <h1 className="text-3xl font-bold text-blue-700">Patient Dashboard</h1>
         </div>
+        <div className="flex flex-wrap justify-center gap-4">
+          <button
+            onClick={() => navigate("/home")}
+            className="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 shadow transition"
+          >
+             Home
+          </button>
+          <button
+            onClick={() => navigate("/patient-profile")}
+            className="bg-yellow-500 text-white px-5 py-2 rounded-lg hover:bg-yellow-600 shadow transition"
+          >
+             Edit Profile
+          </button>
+        </div>
+      </div>
 
-
-      <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-2">
-   
-        <div className="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">
-            Available Doctors
+      <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2">
+      
+        <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-800">
+            <FaUserMd className="text-blue-500" /> Available Doctors
           </h2>
           {doctors.length === 0 ? (
             <p className="text-gray-500">No doctors found.</p>
           ) : (
-            doctors.map((doc) => (
-              <button
-                key={doc.id}
-                onClick={() => fetchAvailability(doc.profile_id)}
-                className={`w-full text-left p-3 mb-2 rounded-md border hover:bg-blue-100 ${
-                  selectedDoctor === doc.id ? "bg-blue-200" : ""
-                }`}
-              >
-                Dr. {doc.username}
-              </button>
-            ))
+            <div className="space-y-2">
+              {doctors.map((doc) => (
+                <button
+                  key={doc.id}
+                  onClick={() => fetchAvailability(doc.profile_id)}
+                  className={`w-full text-left p-3 rounded-lg border transition-all ${
+                    selectedDoctor === doc.profile_id
+                      ? "bg-blue-100 border-blue-400"
+                      : "hover:bg-blue-50"
+                  }`}
+                >
+                  Dr. {doc.username}
+                </button>
+              ))}
+            </div>
           )}
         </div>
 
-     
-        <div className="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">
-            Doctor Availability
+       
+        <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2 text-gray-800">
+            <FaCalendarAlt className="text-blue-500" /> Doctor Availability
           </h2>
-
           <input
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="w-full mb-4 p-2 border rounded"
+            className="w-full mb-4 p-2 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
 
           {availabilities.length === 0 ? (
@@ -155,28 +156,30 @@ export default function PatientDashboard() {
               Select a doctor to view available times.
             </p>
           ) : (
-            availabilities.map((slot) => (
-              <div
-                key={slot.id}
-                className="flex justify-between items-center p-3 mb-2 bg-blue-50 rounded-md"
-              >
-                <span>
-                  Day: {slot.day} — {slot.start_time}–{slot.end_time}
-                </span>
-                <button
-                  onClick={() => bookAppointment(slot)}
-                  className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition"
+            <div className="space-y-2">
+              {availabilities.map((slot) => (
+                <div
+                  key={slot.id}
+                  className="flex justify-between items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition"
                 >
-                  Book
-                </button>
-              </div>
-            ))
+                  <span className="text-gray-700">
+                    {slot.day}: {slot.start_time} – {slot.end_time}
+                  </span>
+                  <button
+                    onClick={() => bookAppointment(slot)}
+                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition"
+                  >
+                    Book
+                  </button>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
 
      
-      <div className="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-6 border border-gray-200">
+      <div className="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">
           My Appointments
         </h2>
@@ -186,44 +189,46 @@ export default function PatientDashboard() {
             You have no appointments yet.
           </p>
         ) : (
-          appointments.map((a) => (
-            <div
-              key={a.id}
-              className={`flex justify-between items-center p-3 mb-2 rounded-md ${
-                a.status === "CONFIRMED"
-                  ? "bg-green-50"
-                  : a.status === "CANCELLED"
-                  ? "bg-red-50"
-                  : "bg-gray-50"
-              }`}
-            >
-              <span>
-                <strong>Doctor:</strong> {a.doctor_name} |{" "}
-                <strong>Date:</strong> {a.date} |{" "}
-                <strong>Status:</strong>{" "}
-                <span
-                  className={`font-semibold ${
-                    a.status === "CONFIRMED"
-                      ? "text-green-600"
-                      : a.status === "CANCELLED"
-                      ? "text-red-600"
-                      : "text-gray-600"
-                  }`}
-                >
-                  {a.status}
+          <div className="space-y-2">
+            {appointments.map((a) => (
+              <div
+                key={a.id}
+                className={`flex justify-between items-center p-3 rounded-lg transition ${
+                  a.status === "CONFIRMED"
+                    ? "bg-green-50"
+                    : a.status === "CANCELLED"
+                    ? "bg-red-50"
+                    : "bg-gray-50"
+                }`}
+              >
+                <span className="text-gray-700">
+                  <strong>Doctor:</strong> {a.doctor_name} |{" "}
+                  <strong>Date:</strong> {a.date} |{" "}
+                  <strong>Status:</strong>{" "}
+                  <span
+                    className={`font-semibold ${
+                      a.status === "CONFIRMED"
+                        ? "text-green-600"
+                        : a.status === "CANCELLED"
+                        ? "text-red-600"
+                        : "text-gray-600"
+                    }`}
+                  >
+                    {a.status}
+                  </span>
                 </span>
-              </span>
 
-              {a.status !== "CANCELLED" && (
-                <button
-                  onClick={() => cancelAppointment(a.id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-                >
-                  Cancel
-                </button>
-              )}
-            </div>
-          ))
+                {a.status !== "CANCELLED" && (
+                  <button
+                    onClick={() => cancelAppointment(a.id)}
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
